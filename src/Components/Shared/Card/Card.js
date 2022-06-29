@@ -1,5 +1,7 @@
 import React from 'react'
-import { View, StyleSheet, Dimensions } from 'react-native'
+import { View, Dimensions } from 'react-native'
+import { ScaledSheet } from 'react-native-size-matters'
+
 
 
 const { width, height } = Dimensions.get('screen')
@@ -10,9 +12,9 @@ export default function Card(props) {
         </View>
     )
 }
+// ScaledSheet.create
 
-
-const Style = StyleSheet.create({
+const Style = ScaledSheet.create({
     card: {
         // backgroundColor: WHITE,
         margin: 18,

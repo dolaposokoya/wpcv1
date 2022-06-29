@@ -17,7 +17,7 @@ export default function CompetitonShowCase(props) {
                 <>
                     {index < 5 &&
                         <View>
-                        {/* <SkeletonPlaceholder> */}
+                            {/* <SkeletonPlaceholder> */}
                             <View style={Styles.container} key={index} />
                         </View>
                     }
@@ -28,11 +28,7 @@ export default function CompetitonShowCase(props) {
                             <Image source={{ uri: item }}
                                 style={Styles.cardImage}
                             />
-                            <View
-                                // colors={["#00000000", '#00000001', '#000000']}
-                                // start={{ x: 0, y: 0.3 }}
-                                // end={{ x: 0, y: 1 }}
-                                style={Styles.overLay} >
+                            <View style={Styles.overLay} >
                                 {compType[index] === true &&
                                     <Text style={Styles.competition}>{'Pro Competition'}</Text>}
                                 <Text style={Styles.text}>{compName[index]}</Text>

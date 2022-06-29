@@ -1,10 +1,10 @@
-import React from 'react'
-import { StyleSheet, Dimensions } from 'react-native';
-import { fonts, GRAY, THEME_COLOR_BACKGROUND, WHITE, PLUS_COLOR, PLACEHOLDER_COLOR, THEME_COLOR, LINE_COLOR } from '../../../Config/Config';
+import { Dimensions } from 'react-native';
+import { ScaledSheet } from 'react-native-size-matters';
+import { THEME_COLOR_BACKGROUND, WHITE, THEME_COLOR, LINE_COLOR } from '../../../Config/Config';
 
 
 const { width, height } = Dimensions.get('screen')
-const Styles = StyleSheet.create({
+const Styles = ScaledSheet.create({
     scrollView: {
         width,
         height,

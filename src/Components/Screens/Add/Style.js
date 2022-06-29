@@ -1,9 +1,10 @@
-import { StyleSheet, Dimensions } from 'react-native'
+import { Dimensions } from 'react-native'
+import { ScaledSheet } from 'react-native-size-matters'
 import { THEME_COLOR, LIGHT_GRAY, WHITE, BACKGROUND, fontSize } from '../../../Config/Config'
 
 const { width, height } = Dimensions.get('screen')
 const overlayHeight = height * 0.45
-const Styles = StyleSheet.create({
+const Styles = ScaledSheet.create({
     SafeAreaView: {
         flex: 1,
         marginBottom: 15

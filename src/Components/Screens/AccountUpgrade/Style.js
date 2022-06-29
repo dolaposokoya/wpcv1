@@ -1,10 +1,11 @@
-import React from 'react'
-import { StyleSheet, Dimensions, StatusBar } from 'react-native'
-import { WHITE, THEME_COLOR_BACKGROUND, fonts, THEME_COLOR, CARD_COLOR, BORDER_COLOR } from '../../../Config/Config'
+import { Dimensions } from 'react-native'
+import { ScaledSheet } from 'react-native-size-matters'
+import { WHITE, THEME_COLOR_BACKGROUND, THEME_COLOR, CARD_COLOR, BORDER_COLOR } from '../../../Config/Config'
+
 
 const { width, height } = Dimensions.get('screen')
 const overlayHeight = height * 0.45
-const Styles = StyleSheet.create({
+const Styles = ScaledSheet.create({
     scrollview: {
         backgroundColor: WHITE,
         height,

@@ -1,9 +1,10 @@
-import { StyleSheet, Dimensions } from 'react-native';
-import { fonts, THEME_COLOR_BACKGROUND, INTEREST_COLOR } from '../../../Config/Config';
+import { Dimensions } from 'react-native';
+import { ScaledSheet } from 'react-native-size-matters';
+import { THEME_COLOR_BACKGROUND, INTEREST_COLOR } from '../../../Config/Config';
 
 
 const { width, height } = Dimensions.get('screen')
-const Styles = StyleSheet.create({
+const Styles = ScaledSheet.create({
     body: {
         height,
         width,

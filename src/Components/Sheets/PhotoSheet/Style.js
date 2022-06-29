@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, Dimensions } from 'react-native'
-import { fonts, GRAY, HEADER_COLOR, NAVY_BLUE, TEXT_BLUE, WHITE } from '../../../Config/Config';
+import { Dimensions } from 'react-native'
+import { ScaledSheet } from 'react-native-size-matters';
+import { GRAY, NAVY_BLUE, TEXT_BLUE, WHITE } from '../../../Config/Config';
 
 
 const { width, height } = Dimensions.get('screen')
-const Styles = StyleSheet.create({
+const Styles = ScaledSheet.create({
     sheet: {
         display: 'flex',
         justifyContent: 'center',

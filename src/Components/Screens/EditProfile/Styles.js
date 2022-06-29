@@ -1,7 +1,6 @@
-import React from 'react'
-import { StyleSheet, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
 import { ScaledSheet } from 'react-native-size-matters';
-import { fonts, GRAY, THEME_COLOR_BACKGROUND, WHITE, PLUS_COLOR, PLACEHOLDER_COLOR, THEME_COLOR, LINE_COLOR, LINE_COLOR1, fontSize } from '../../../Config/Config';
+import { WHITE, LINE_COLOR, LINE_COLOR1, fontSize } from '../../../Config/Config';
 
 
 const { width, height } = Dimensions.get('screen')

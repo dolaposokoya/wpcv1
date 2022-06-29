@@ -19,11 +19,14 @@ const Styles = ScaledSheet.create({
         justifyContent: 'space-evenly',
         alignItems: 'center',
         borderRadius: 5,
+        backgroundColor: 'green',
+        marginLeft: 10
     },
     cardImage: {
         alignContent: 'center',
         borderRadius: 5,
         width: '100%',
+        width: imageWidth,
         height: imageHeight,
         resizeMode: 'cover'
     },
@@ -45,12 +48,14 @@ const Styles = ScaledSheet.create({
         color: COMP_COLOR,
         fontFamily: 'bold',
         fontSize: fontSize.twelve,
+        marginLeft: '10@msr',
         textAlign: 'left'
     },
     text: {
         color: CREAM,
         fontFamily: 'bold',
         fontSize: fontSize.eigthteen,
+        marginLeft: '10@msr',
         textAlign: 'left'
     },
 

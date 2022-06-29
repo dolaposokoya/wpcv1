@@ -1,8 +1,8 @@
-import { StyleSheet } from 'react-native'
+import { ScaledSheet } from 'react-native-size-matters'
 import { BLACK } from '../../../Config/Config'
 
 
-const Styles = StyleSheet.create({
+const Styles = ScaledSheet.create({
 
     touch: {
         justifyContent: 'center',
