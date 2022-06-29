@@ -1,6 +1,14 @@
 {
   "expo": {
-    "name": "worldphotographersclub",
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app requires access to photo library."
+        }
+      ]
+    ],
+    "name": "World Photographers Club",
     "slug": "worldphotographersclub",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -9,7 +17,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#080E1D"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -23,8 +31,9 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "backgroundColor": "#080E1D"
+      },
+      "package": "com.worldphotographersclub.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
