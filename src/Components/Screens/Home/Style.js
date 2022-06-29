@@ -94,7 +94,6 @@ const Styles = ScaledSheet.create({
         paddingBottom: '9@msr'
     },
     loadMore: {
-        // marginTop: '10@msr',
         marginBottom: '60@msr',
         display: 'flex',
         justifyContent: 'center',

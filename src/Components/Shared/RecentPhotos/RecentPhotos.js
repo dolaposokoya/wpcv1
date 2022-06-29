@@ -12,6 +12,7 @@ import Like from '../../../Assets/Images/like.png'
 import LikeActive from '../../../Assets/Images/likeactive.png';
 import Animated from 'react-native-reanimated'
 import { moderateScale } from 'react-native-size-matters';
+import Loader from '../Loader/Loader'
 
 const { width, height } = Dimensions.get('screen')
 
@@ -19,7 +20,7 @@ const SPACING = width * 0.5;
 const AVATAR_SIZE = moderateScale(5);
 export default function RecentPhotos(props) {
 
-    const { navigation, loading, item, index, photoView, photoLikes, photoFullUrl, parents, comment, commentPhoto, createdAt, description } = props
+    const { navigation, loading, item, index, photoView, photoLikes, photoFullUrl, parents, comment, commentPhoto, createdAt, description, topPhotos } = props
     const [likeImage, setlikeImage] = useState(require('../../../Assets/Images/like.png'))
 
     const likePhoto = async (index) => {
@@ -84,78 +85,78 @@ export default function RecentPhotos(props) {
         })
     }
 
-
     return (
-        <Animated.View style={Styles.card} key={index}>
-            <FlexRow>
-                <FlexRow>
-                    <Image
-                        source={{ uri: item }}
-                        style={Styles.profileImage}
-                    />
-                    <TouchableOpacity
-                        onPress={() => goToPhotoGraphersPage(item, index)}
-                        style={{
-                            marginLeft: '3%',
-                        }}>
-                        <Text style={Styles.text}>{parents[index] === '' ? 'Null' : parents[index]}</Text>
-                        <Text style={Styles.profileText}>Professional Photographer</Text>
-                    </TouchableOpacity>
-                </FlexRow>
-                <FlexRow>
-                    <Text style={Styles.profileDate}>{createdAt[index]}</Text>
-                    <ProfileSheet copyLInk={copyLInk} />
-                </FlexRow>
-            </FlexRow>
-            <View style={Styles.profileImageView}>
-                <Image
-                    source={item ? { uri: item } : require('../../../Assets/Images/image.png')}
-                    style={Styles.profileImageViewImg}
-                />
-            </View>
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <FlexRow style={Styles.flexRow1}>
+        <>
+            {loading ? <Loader /> :
+                <Animated.View style={Styles.card} key={index}>
                     <FlexRow>
-                        <TouchableOpacity onPress={() => likePhoto(index)}>
-                            <Image source={likeImage}
-                                style={Styles.flexRow1Image}
+                        <FlexRow>
+                            <Image
+                                source={{ uri: item }}
+                                style={Styles.profileImage}
                             />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => commentPhoto(index, item)}>
-                            <Image source={require('../../../Assets/Images/comment.png')}
-                                style={Styles.flexRow1Image}
-                            />
-                        </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => goToPhotoGraphersPage(item, index)}
+                                style={{
+                                    marginLeft: '3%',
+                                }}>
+                                <Text style={Styles.text}>{parents[index] === '' ? 'Null' : parents[index]}</Text>
+                                <Text style={Styles.profileText}>Professional Photographer</Text>
+                            </TouchableOpacity>
+                        </FlexRow>
+                        <FlexRow>
+                            <Text style={Styles.profileDate}>{createdAt[index]}</Text>
+                            <ProfileSheet copyLInk={copyLInk} />
+                        </FlexRow>
                     </FlexRow>
-                    <Image source={require('../../../Assets/Images/bookmark.png')}
-                        style={Styles.flexRow1Image}
-                    />
-                </FlexRow>
-            </View>
-            {(description && description.length > 0) && <View style={Styles.commentView}>
-                <Text style={Styles.commentText}>{description[index]}</Text>
-            </View>}
-            {(comment && comment.length > 0) && <View style={Styles.commentView}>
-                <Text style={Styles.commentText}>{comment.length > 0 ? 'Photo comment' : ''}</Text>
-            </View>}
-            <View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'flex-start', marginBottom: 0 }}>
-                <FlexRow style={{
-                    justifyContent: 'flex-start',
-                    marginLeft: moderateScale(12),
-                    marginTop: moderateScale(10)
-                }}>
-                    <Text style={Styles.like}>{photoLikes[index]} likes</Text>
-                    {comment[index] !== '' && <Text style={Styles.like}>{comment[index]} comments</Text>}
-                </FlexRow>
-            </View>
-            <View style={{ margin: 10, justifyContent: 'center', alignItems: 'center' }}>
-                <View style={{
-                    borderBottomWidth: 0.9,
-                    width: width * 0.95,
-                    borderBottomColor: WHITE,
-                    opacity: 0.57
-                }} />
-            </View>
-        </Animated.View>
+                    <View style={Styles.profileImageView}>
+                        <Image
+                            source={item ? { uri: item } : require('../../../Assets/Images/image.png')}
+                            style={Styles.profileImageViewImg}
+                        />
+                    </View>
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <FlexRow style={Styles.flexRow1}>
+                            <FlexRow>
+                                <TouchableOpacity onPress={() => likePhoto(index)}>
+                                    <Image source={likeImage}
+                                        style={Styles.flexRow1Image}
+                                    />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => commentPhoto(index, item)}>
+                                    <Image source={require('../../../Assets/Images/comment.png')}
+                                        style={Styles.flexRow1Image}
+                                    />
+                                </TouchableOpacity>
+                            </FlexRow>
+                            <Image source={require('../../../Assets/Images/bookmark.png')}
+                                style={Styles.flexRow1Image}
+                            />
+                        </FlexRow>
+                    </View>
+                    <View style={Styles.commentView}>
+                        <Text style={Styles.commentText} ellipsizeMode='tail' numberOfLines={1}>{description[index]}</Text>
+                    </View>
+                    <View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'flex-start', marginBottom: 0 }}>
+                        <FlexRow style={{
+                            justifyContent: 'flex-start',
+                            marginLeft: moderateScale(12),
+                            marginTop: moderateScale(10)
+                        }}>
+                            <Text style={Styles.like}>{photoLikes[index]} likes</Text>
+                            {comment[index] !== '' && <Text style={Styles.like}>{comment[index]} comments</Text>}
+                        </FlexRow>
+                    </View>
+                    <View style={{ margin: 10, justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{
+                            borderBottomWidth: 0.9,
+                            width: width * 0.95,
+                            borderBottomColor: WHITE,
+                            opacity: 0.57
+                        }} />
+                    </View>
+                </Animated.View>
+            }
+        </>
     )
 }

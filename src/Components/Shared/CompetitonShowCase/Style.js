@@ -19,8 +19,7 @@ const Styles = ScaledSheet.create({
         justifyContent: 'space-evenly',
         alignItems: 'center',
         borderRadius: 5,
-        backgroundColor: 'green',
-        marginLeft: 10
+        marginLeft: '10@msr'
     },
     cardImage: {
         alignContent: 'center',

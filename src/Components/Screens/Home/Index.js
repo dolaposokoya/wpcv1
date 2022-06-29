@@ -315,6 +315,7 @@ function Index(props) {
                 setphotoFullUrl([...photoFullUrl, ...photo_full_url])
                 setparents([...parents, ...parent])
                 setIsLoading(false);
+                setmorePhotos(false);
             }
             else {
                 settopPhotos(topPhotos)
@@ -323,12 +324,14 @@ function Index(props) {
                 setphotoFullUrl(photoFullUrl)
                 setparents(parents)
                 setIsLoading(false);
+                setmorePhotos(false);
             }
         } catch (error) {
             setIsLoading(false);
             seterrorType('error')
             setmessage(error.message)
             setopenModal(true)
+            setmorePhotos(false);
         }
     }
 
