@@ -106,8 +106,9 @@ function Index(props) {
             setloading(false)
         } catch (error) {
             setloading(false)
-            seterrorType('error')
-            setmessage(error.message)
+            seterrorType('warning')
+            setmessage('Please refresh the page')
+            console.log('Error Message', error)
             setopenModal(true)
         }
     }
@@ -153,61 +154,81 @@ function Index(props) {
             redirect: 'follow'
         };
         const response = await fetch(`${apiUrl.generalUrl}`, requestOptions)
-        const { photo_url, views, likes, success, photo_full_url, parent, num_comments, description, photo_created_on } = await response.json();
-        if (success === 1) {
-            settopPhotos(photo_url)
-            setphotoView(views)
-            setphotoLikes(likes)
-            setphotoFullUrl(photo_full_url)
-            setparents(parent)
-            setcomment(num_comments)
-            setdescription(description)
-            setphoto_created_on(photo_created_on)
-        }
-        else {
+        const result = await response.json();
+        if (result && !result.success) {
             settopPhotos([])
             setphotoView([])
             setphotoLikes([])
+            setphotoFullUrl([])
+            setparents([])
+            setcomment([])
+            setdescription([])
+            setphoto_created_on([])
+        }
+        else {
+            const { photo_url, views, likes, success, photo_full_url, parent, num_comments, description, photo_created_on } = result;
+            if (success === 1) {
+                settopPhotos(photo_url)
+                setphotoView(views)
+                setphotoLikes(likes)
+                setphotoFullUrl(photo_full_url)
+                setparents(parent)
+                setcomment(num_comments)
+                setdescription(description)
+                setphoto_created_on(photo_created_on)
+            }
+            else {
+                settopPhotos([])
+                setphotoView([])
+                setphotoLikes([])
+            }
         }
     }
 
     const getRecommendedPhotographers = async () => {
-        const user_id = await AsyncStorage.getItem('@user_id')
-        const fomrData = new FormData()
-        fomrData.append("actionType", RECOMMENDED_PHOTOGRAPHERS);
-        fomrData.append("offset", 0)
-        fomrData.append("me_id", user_id)
-        const requestOptions = {
-            method: 'POST',
-            body: fomrData,
-            headers: headers
-        };
-        const response = await fetch(`${apiUrl.generalUrl}`, requestOptions)
-        const { image_1, num_photos, image_2, success, user_name, userid, is_following_me, profile_image } = await response.json();
-        // console.log('response.json()',)
-        if (success === 1) {
-            const userProfile = []
-            profile_image.filter(item => {
-                if (!item.includes('https')) {
-                    item = `https://www.worldphotographersclub.com${item}`
-                    userProfile.push(item)
-                }
-                else {
-                    userProfile.push(item)
-                }
-            })
-            setloggedId(user_id)
-            setimage1(image_1)
-            setimage2(image_2)
-            setphotoNum(num_photos)
-            setuserName(user_name)
-            setuserId(userid)
-            setfollowing(is_following_me)
-            setprofileImage(userProfile)
-        }
-        else {
-            setimage1([])
-            setimage2([])
+        try {
+            const user_id = await AsyncStorage.getItem('@user_id')
+            const fomrData = new FormData()
+            fomrData.append("actionType", RECOMMENDED_PHOTOGRAPHERS);
+            fomrData.append("offset", 0)
+            fomrData.append("me_id", user_id)
+            const requestOptions = {
+                method: 'POST',
+                body: fomrData,
+                headers: headers
+            };
+            const response = await fetch(`${apiUrl.generalUrl}`, requestOptions)
+            const { image_1, num_photos, image_2, success, user_name, userid, is_following_me, profile_image } = await response.json();
+            // console.log('response.json()',)
+            if (success === 1) {
+                const userProfile = []
+                profile_image.filter(item => {
+                    if (!item.includes('https')) {
+                        item = `https://www.worldphotographersclub.com${item}`
+                        userProfile.push(item)
+                    }
+                    else {
+                        userProfile.push(item)
+                    }
+                })
+                setloggedId(user_id)
+                setimage1(image_1)
+                setimage2(image_2)
+                setphotoNum(num_photos)
+                setuserName(user_name)
+                setuserId(userid)
+                setfollowing(is_following_me)
+                setprofileImage(userProfile)
+            }
+            else {
+                setimage1([])
+                setimage2([])
+            }
+        } catch (error) {
+            setloading(false)
+            seterrorType('warning')
+            setmessage(error.message ? error.message : 'Something went wrong')
+            setopenModal(true)
         }
     }
 
@@ -248,15 +269,23 @@ function Index(props) {
 
     const getCourses = async () => {
         await props.CourseAction(data => {
-            const { error, success, message } = data
-            if (error === false && success === 1) {
-                const { course_id, course_photo_full_url, course_name } = data.data
-                setcourseName(course_name)
-                setcourseImage(course_photo_full_url)
+            if (!data) {
+                setloading(false)
+                seterrorType('warning')
+                setmessage('Something went wrong')
+                setopenModal(true)
             }
             else {
-                setcourseName(courseName)
-                setcourseImage(courseImage)
+                const { error, success, message } = data
+                if (error === false && success === 1) {
+                    const { course_id, course_photo_full_url, course_name } = data.data
+                    setcourseName(course_name)
+                    setcourseImage(course_photo_full_url)
+                }
+                else {
+                    setcourseName(courseName)
+                    setcourseImage(courseImage)
+                }
             }
         });
     }
@@ -305,26 +334,35 @@ function Index(props) {
                 headers: headers,
                 redirect: 'follow'
             };
-            const response = await fetch(`${apiUrl.generalUrl}`, requestOptions)
-            const { photo_url, views, likes, success, photo_full_url, parent } = await response.json();
-            if (success === 1) {
-                const urlLink = [...topPhotos, ...photo_url]
-                settopPhotos(urlLink);
-                setphotoView([...photoView, ...views]);
-                setphotoLikes([...photoLikes, ...likes])
-                setphotoFullUrl([...photoFullUrl, ...photo_full_url])
-                setparents([...parents, ...parent])
-                setIsLoading(false);
-                setmorePhotos(false);
+            const result = await fetch(`${apiUrl.generalUrl}`, requestOptions)
+            const response = await result.json();
+            if (response && !response.success) {
+                setloading(false)
+                seterrorType('warning')
+                setmessage('Something went wrong')
+                setopenModal(true)
             }
             else {
-                settopPhotos(topPhotos)
-                setphotoView(photoView);
-                setphotoLikes(photoLikes)
-                setphotoFullUrl(photoFullUrl)
-                setparents(parents)
-                setIsLoading(false);
-                setmorePhotos(false);
+                const { photo_url, views, likes, success, photo_full_url, parent } = await response;
+                if (success === 1) {
+                    const urlLink = [...topPhotos, ...photo_url]
+                    settopPhotos(urlLink);
+                    setphotoView([...photoView, ...views]);
+                    setphotoLikes([...photoLikes, ...likes])
+                    setphotoFullUrl([...photoFullUrl, ...photo_full_url])
+                    setparents([...parents, ...parent])
+                    setIsLoading(false);
+                    setmorePhotos(false);
+                }
+                else {
+                    settopPhotos(topPhotos)
+                    setphotoView(photoView);
+                    setphotoLikes(photoLikes)
+                    setphotoFullUrl(photoFullUrl)
+                    setparents(parents)
+                    setIsLoading(false);
+                    setmorePhotos(false);
+                }
             }
         } catch (error) {
             setIsLoading(false);
@@ -465,12 +503,18 @@ function Index(props) {
                                                 )
                                             }}
                                             ListFooterComponent={Loader}
+                                            onEndReachedThreshold={0.4}
+                                            onEndReached={(text) => {
+                                                console.log('End reached', text)
+                                                loadMore()
+                                            }
+                                            }
                                         />
-                                        {(!isLoading && !loading) && <TouchableOpacity onPress={() => loadMore()}
+                                        {/* {(!isLoading && !loading) && <TouchableOpacity onPress={() => loadMore()}
                                             style={Styles.loadMore}
                                         >
                                             <Image source={require('../../../Assets/Images/down.png')} style={Styles.loadMoreText} />
-                                        </TouchableOpacity>}
+                                        </TouchableOpacity>} */}
                                         {morePhotos && <RenderLoader />}
                                     </>
                                 }

@@ -21,5 +21,8 @@ export const LOGGEDIN_USER_PHOTO = "fetch_user_photos";
 export const RECOMMENDED_PHOTOGRAPHERS = "fetch_user_flow";
 export const LIKED_PHOTOS = "photo_list_like";
 export const LIKE_PHOTO = "photo_like";
+export const RESET_PASSWORD_EMAIL = "password_reset_email";
+export const RESET_PASSWORD = "reset_password";
+export const RESEND_ACTIVATION_EMAIL = "resend_activation_email";
 
 

@@ -1,5 +1,5 @@
 import { Dimensions } from 'react-native';
-import { fonts, THEME_COLOR_BACKGROUND, WHITE, THEME_COLOR, fontSize } from '../../../Config/Config';
+import { fonts, THEME_COLOR_BACKGROUND, WHITE, THEME_COLOR, fontSize, SUCCESS } from '../../../Config/Config';
 import { ScaledSheet } from 'react-native-size-matters';
 
 
@@ -33,16 +33,29 @@ const Styles = ScaledSheet.create({
         textAlign: 'center',
         width: width * 0.80,
     },
+    successMsg: {
+        width: width * 0.9,
+        paddingTop: '7@vs',
+        paddingBottom: '7@vs',
+        fontSize: fontSize.fifteen,
+        textAlign: 'center',
+        backgroundColor: SUCCESS,
+        color: WHITE,
+        borderWidth: 0,
+        fontFamily: 'medium',
+        borderRadius: 4,
+        marginBottom: '10@msr',
+        marginTop: '25@msr',
+        position: 'relative'
+    },
     formInput: {
         width: width * 0.9,
-        textAlign: 'center',
         fontFamily: 'regular',
         fontSize: fontSize.sixteen,
         backgroundColor: WHITE,
         borderWidth: 0,
         borderRadius: 4,
         marginBottom: '25@msr',
-        marginTop: '25@msr',
         padding: '12@msr'
     },
     btnView: {

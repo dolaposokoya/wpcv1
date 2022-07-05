@@ -44,7 +44,7 @@ export default function RecentPhotos(props) {
                 if (response && response.success === 1) {
                     photoLikes[index] = response.num_like
                     setlikeImage(require('../../../Assets/Images/likeactive.png'))
-                    console.log('likeImage', photoLikes[index])
+                    console.log('likeImage', photoLikes[index],response.success)
                 }
                 else {
                     Alert.alert('Unable to like photo')

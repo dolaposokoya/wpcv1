@@ -7,8 +7,8 @@ export const blog_base_url = 'https://www.worldphotographersclub.com/mblog/api'
 export const cookieName = 'WPC_USER_SESSION'
 export const domain = 'https://www.worldphotographersclub.com/'
 
-// const header = new Headers()
-// header.append("Accept", "application/json");
+const header = new Headers()
+header.append("Accept", "application/json");
 
 export const headers = {
     "Accept": "application/json"
@@ -82,7 +82,7 @@ export const apiUrl = {
     generalUrl: `${base_url}/api`,
     competitionUrl: `${base_url}/mcomp/api`,
     selectPhotoUrl: `${base_url}/mcomp/api`,
-    header: headers
+    header,
 }
 
 export const images = [

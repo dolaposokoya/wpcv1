@@ -3,7 +3,8 @@ import { FlatList } from 'react-native'
 
 export default function ArrayList(props) {
 
-    const { renderItem, data, keyExtractor, horizontal, style, numColumns } = props
+    const { renderItem, data, keyExtractor, horizontal, style, numColumns, onEndReachedThreshold,
+        onEndReached } = props
     return (
         <>
             <FlatList
@@ -14,6 +15,8 @@ export default function ArrayList(props) {
                 numColumns={numColumns && numColumns}
                 renderItem={renderItem}
                 horizontal={horizontal ? horizontal : false}
+                onEndReachedThreshold={onEndReachedThreshold && onEndReachedThreshold}
+                onEndReached={onEndReached && onEndReached}
             />
         </>
     )
